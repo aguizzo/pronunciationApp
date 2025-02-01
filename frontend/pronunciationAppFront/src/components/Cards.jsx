@@ -7,7 +7,7 @@ import {
   Container,
   Grid,
 } from "@mui/material";
-import { fetchWords } from "../middleware/data-api";
+import { fetchWords } from "../middleware/words-data-api";
 
 export default function WordList() {
   const [words, setWords] = useState([]);
