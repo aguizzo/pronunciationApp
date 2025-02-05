@@ -38,7 +38,7 @@ public class AppUserController {
                 .orElseGet(() -> new ResponseEntity<>(headers, HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/createUser")
+    @PostMapping()
     public ResponseEntity<AppUser> createUser(@RequestBody AppUser user) {
         Optional<AppUser> createdUser = appUserService.createAppUser(user);
         HttpHeaders headers = getCommonHeaders("Create a new user");
