@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import {
   Box,
   Card,
+  CardActions,
   CardContent,
+  Collapse,
   Typography,
   Container,
   Grid,
@@ -11,11 +13,14 @@ import {
   Select,
   MenuItem,
   FormHelperText,
+  IconButton,
 } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { fetchWords } from "../middleware/words-data-api";
 
 export default function WordList() {
   const [words, setWords] = useState([]);
+  const [expandedStates, setExpandedStates] = useState([]);
   const [currentLevel, setCurrentLevel] = useState("");
 
   useEffect(() => {
@@ -23,6 +28,7 @@ export default function WordList() {
       try {
         const data = await fetchWords();
         setWords(data);
+        setExpandedStates(Array(data.length).fill(false));
       } catch (error) {
         console.error("Failed to fetch words:", error);
       }
@@ -30,6 +36,14 @@ export default function WordList() {
 
     getWords();
   }, []);
+
+  const handleExpandClick = (index) => {
+    setExpandedStates((prevStates) => {
+      const newStates = [...prevStates];
+      newStates[index] = !newStates[index];
+      return newStates;
+    });
+  };
 
   const handleChangeCurrentLevel = (e) => {
     setCurrentLevel(e.target.value);
@@ -48,7 +62,7 @@ export default function WordList() {
     }
   };
 
-  // TODO: Fix InpuntLabel display
+  // TODO: Improve InputLabel display
   return (
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
@@ -87,7 +101,7 @@ export default function WordList() {
             .filter((word) => {
               return currentLevel === "All" || word.level === +currentLevel;
             })
-            .map((word) => (
+            .map((word, index) => (
               <Grid item xs={12} sm={6} md={4} key={word.id}>
                 <Card
                   sx={{
@@ -113,6 +127,41 @@ export default function WordList() {
                       Pronunciation: {word.phoneticSpelling}
                     </Typography>
                   </CardContent>
+                  {word.synonyms.length != 0 && (
+                    <>
+                      <CardActions
+                        disableSpacing
+                        sx={{ justifyContent: "center" }}
+                      >
+                        <Box sx={{ display: "flex" }}>
+                          <Typography sx={{ color: "#F0F4F8" }}>
+                            Synonyms
+                          </Typography>
+                          <IconButton onClick={() => handleExpandClick(index)}>
+                            <ArrowDropDownIcon
+                              sx={{
+                                position: "relative",
+                                top: "-8px",
+                                color: "#F0F4F8",
+                              }}
+                            />
+                          </IconButton>
+                        </Box>
+                      </CardActions>
+                      <Collapse in={expandedStates[index]}>
+                        {word.synonyms.map((synonym) => (
+                          <Typography
+                            key={synonym + word.id}
+                            variant="body2"
+                            sx={{ color: "#B0B8C1" }}
+                            mb={1}
+                          >
+                            {synonym}
+                          </Typography>
+                        ))}
+                      </Collapse>
+                    </>
+                  )}
                 </Card>
               </Grid>
             ))}
