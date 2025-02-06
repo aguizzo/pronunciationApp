@@ -66,7 +66,14 @@ public class AppUserController {
 
     }
 
-    //TODO: get appUser by email using request param
+    @GetMapping("/findBy")
+    public ResponseEntity<AppUser> getAppUserByEmail(@RequestParam String email) {
+        Optional<AppUser> user = appUserService.findAppUserByEmail(email);
+        HttpHeaders headers = getCommonHeaders("Get user by email");
+
+        return user.map(value -> new ResponseEntity<>(value, headers, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(headers, HttpStatus.NOT_FOUND));
+    }
 
     private HttpHeaders getCommonHeaders(String description) {
         HttpHeaders headers = new HttpHeaders();
@@ -75,7 +82,7 @@ public class AppUserController {
         headers.add("date", new Date().toString());
         headers.add("server", "Spring Boot");
         headers.add("version", "1.0.0");
-        headers.add("word-count", String.valueOf(appUserService.getAppUserCount()));
+        headers.add("user-count", String.valueOf(appUserService.getAppUserCount()));
         headers.add("object", "appUsers");
         return headers;
     }
