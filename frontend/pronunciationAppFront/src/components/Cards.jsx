@@ -47,6 +47,7 @@ export default function WordList() {
 
   const handleChangeCurrentLevel = (e) => {
     setCurrentLevel(e.target.value);
+    setExpandedStates(Array(words.length).fill(false));
   };
 
   const getColorLevel = (level) => {
