@@ -41,9 +41,14 @@ public class AppUserService {
     }
 
     public boolean deleteAppUser(String id) {
-        appUserRepository.deleteById(id);
         Optional<AppUser> deletedUser = appUserRepository.findById(id);
-        return deletedUser.isEmpty();
+
+        if (deletedUser.isPresent()) {
+            appUserRepository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
 
     public Optional<AppUser> findAppUserByEmail(String email) {

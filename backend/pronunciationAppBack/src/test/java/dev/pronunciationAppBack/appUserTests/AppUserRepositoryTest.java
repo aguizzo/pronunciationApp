@@ -23,18 +23,18 @@ public class AppUserRepositoryTest {
     @Autowired
     private AppUserRepository appUserRepository;
 
-    private AppUser appUser;
+    private AppUser testAppUser;
 
     @BeforeEach
     public void setup() {
-        appUser = new AppUser(ID, "Alice", EMAIL, "password", 25, LocalDate.now());
+        testAppUser = new AppUser(ID, "Alice", EMAIL, "password", 25, LocalDate.now());
     }
 
     @Test
     public void shouldCreateAppUser() {
         // given appUser
         // when
-        appUserRepository.save(appUser);
+        appUserRepository.save(testAppUser);
         // then
         Optional<AppUser> createdUser = appUserRepository.findById(ID);
         assertThat(createdUser.isPresent()).isTrue();
@@ -44,7 +44,7 @@ public class AppUserRepositoryTest {
     @Test
     public void shouldDeleteAppUser() {
         // given
-        appUserRepository.save(appUser);
+        appUserRepository.save(testAppUser);
         // when
         appUserRepository.deleteById(ID);
         // then
@@ -55,11 +55,11 @@ public class AppUserRepositoryTest {
     @Test
     public void shouldUpdateAppUser() {
         // given
-        appUserRepository.save(appUser);
+        appUserRepository.save(testAppUser);
         // when
         String newEmail = "AliceNewEmail@example.com";
-        appUser.setEmail(newEmail);
-        appUserRepository.save(appUser);
+        testAppUser.setEmail(newEmail);
+        appUserRepository.save(testAppUser);
         // then
         Optional<AppUser> updatedUser = appUserRepository.findById(ID);
         assertThat(updatedUser).isNotEmpty();
@@ -69,7 +69,7 @@ public class AppUserRepositoryTest {
     @Test
     void shouldFindAppUserByEmail() {
         // given
-        appUserRepository.save(appUser);
+        appUserRepository.save(testAppUser);
         // when
         Optional<AppUser> foundUser = appUserRepository.findByEmail(EMAIL);
         // then
