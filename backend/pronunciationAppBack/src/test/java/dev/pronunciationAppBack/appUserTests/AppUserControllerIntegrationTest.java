@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import utils.AppUserObjectMapper;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,6 +54,17 @@ public class AppUserControllerIntegrationTest {
     }
 
     @Test
+    public void shouldReturnAllAppUsersAndOkStatus() throws Exception {
+        appUserRepository.save(testAppUser);
+
+        mockMvc.perform(get(API_URL)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(mapper.writeValueAsString(List.of(testAppUser))));
+    }
+
+    @Test
     public void shouldFindAppUserByIdAndReturnAppUserAndOkStatus() throws Exception {
         appUserRepository.save(testAppUser);
 
@@ -61,5 +73,15 @@ public class AppUserControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(mapper.writeValueAsString(testAppUser)));
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenAppUserNotFoundById() throws Exception {
+        appUserRepository.save(testAppUser);
+
+        mockMvc.perform(get(String.format("%s/%s", API_URL, NON_EXISTING_ID))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(""));
     }
 }
