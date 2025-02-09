@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -135,5 +136,15 @@ public class AppUserServiceUnitTest {
 
         assertThat(result.size()).isEqualTo(1);
         assertThat(result.get(0).getEmail()).isEqualTo(EMAIL);
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenNoUsersFound() {
+        List<AppUser> users = Collections.emptyList();
+        when(appUserRepositoryMock.findAll()).thenReturn(users);
+
+        List<AppUser> result = appUserService.getAllUsers();
+
+        assertThat(result).isEmpty();
     }
 }
