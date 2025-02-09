@@ -182,6 +182,9 @@ public class AppUserControllerUnitTest {
 
     @Test
     public void shouldUpdateAppUserAndReturnAppUserAndOkStatus() throws Exception {
+        // TODO: Create new AppUser details
+        // TODO: add when(appUserServiceMock.findAppUserById(ID)).thenReturn(Optional.of(testAppUser));
+        // TODO: change to when(appUserServiceMock.updateAppUser(any(AppUser.class))).thenReturn(Optional.of(updatedDetails);
         when(appUserServiceMock.updateAppUser(any(AppUser.class))).thenReturn(Optional.of(testAppUser));
 
         MockHttpServletResponse response = mockMvc.perform(
@@ -199,7 +202,9 @@ public class AppUserControllerUnitTest {
     }
 
     @Test
+    // TODO: change method name returnNotFoundStatus
     public void shouldNotUpdateAppUserAndReturnBadRequestStatus() throws Exception {
+        // TODO: change to when(appUserServiceMock.findAppUserById(ID)).thenReturn(Optional.ofEmpty()););
         when(appUserServiceMock.updateAppUser(any(AppUser.class))).thenReturn(Optional.empty());
 
         MockHttpServletResponse response = mockMvc.perform(

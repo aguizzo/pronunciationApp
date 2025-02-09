@@ -71,6 +71,7 @@ public class AppUserServiceUnitTest {
 
     @Test
     void shouldUpdateAppUser() {
+        // TODO: Fix this test for updating the age
         AppUser updatedDetails = new AppUser(ID, UPDATED_NAME, UPDATED_EMAIL, UPDATED_PASSWORD, 30, LocalDate.now());
 
         when(appUserRepositoryMock.findById(ID)).thenReturn(Optional.of(testAppUser));
