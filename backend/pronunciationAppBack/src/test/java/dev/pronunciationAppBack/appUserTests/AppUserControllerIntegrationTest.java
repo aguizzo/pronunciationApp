@@ -144,7 +144,6 @@ public class AppUserControllerIntegrationTest {
         appUserRepository.save(testAppUser);
         AppUser updatedDetails = new AppUser(ID, UPDATED_NAME, UPDATED_EMAIL, UPDATED_PASSWORD, 30, LocalDate.now());
 
-        // TODO: Fix this test for updating the age
         mockMvc.perform(put(String.format("%s/%s", API_URL, ID))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(AppUserObjectMapper.serialize(updatedDetails))

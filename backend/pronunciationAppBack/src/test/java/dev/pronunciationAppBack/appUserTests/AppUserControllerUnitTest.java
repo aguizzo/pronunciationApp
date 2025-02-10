@@ -38,6 +38,10 @@ public class AppUserControllerUnitTest {
     public static final String ID = "1";
     public static final String EMAIL = "alice@example.com";
     public static final String NON_EXISTING_ID = "9999";
+    public static final String UPDATED_NAME = "Updated Name";
+    public static final String UPDATED_EMAIL = "updated@example.com";
+    public static final String UPDATED_PASSWORD = "newpassword";
+    public static final int UPDATED_AGE = 30;
 
     public static final String API_URL = "/api/users";
 
@@ -182,30 +186,27 @@ public class AppUserControllerUnitTest {
 
     @Test
     public void shouldUpdateAppUserAndReturnAppUserAndOkStatus() throws Exception {
-        // TODO: Create new AppUser details
-        // TODO: add when(appUserServiceMock.findAppUserById(ID)).thenReturn(Optional.of(testAppUser));
-        // TODO: change to when(appUserServiceMock.updateAppUser(any(AppUser.class))).thenReturn(Optional.of(updatedDetails);
-        when(appUserServiceMock.updateAppUser(any(AppUser.class))).thenReturn(Optional.of(testAppUser));
+        AppUser updatedDetails = new AppUser(ID, UPDATED_NAME, UPDATED_EMAIL, UPDATED_PASSWORD, UPDATED_AGE, LocalDate.now());
+        when(appUserServiceMock.findAppUserById(ID)).thenReturn(Optional.of(testAppUser));
+        when(appUserServiceMock.updateAppUser(any(AppUser.class))).thenReturn(Optional.of(updatedDetails));
 
         MockHttpServletResponse response = mockMvc.perform(
                         put(String.format("%s/%s", API_URL, ID))
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(jsonAppUser.write(testAppUser).getJson())
+                                .content(jsonAppUser.write(updatedDetails).getJson())
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn()
                 .getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(
-                jsonAppUser.write(testAppUser).getJson()
+                jsonAppUser.write(updatedDetails).getJson()
         );
     }
 
     @Test
-    // TODO: change method name returnNotFoundStatus
-    public void shouldNotUpdateAppUserAndReturnBadRequestStatus() throws Exception {
-        // TODO: change to when(appUserServiceMock.findAppUserById(ID)).thenReturn(Optional.ofEmpty()););
-        when(appUserServiceMock.updateAppUser(any(AppUser.class))).thenReturn(Optional.empty());
+    public void shouldNotUpdateAppUserAndReturnNotFoundStatus() throws Exception {
+        when(appUserServiceMock.findAppUserById(NON_EXISTING_ID)).thenReturn(Optional.empty());
 
         MockHttpServletResponse response = mockMvc.perform(
                         put(String.format("%s/%s", API_URL, NON_EXISTING_ID))

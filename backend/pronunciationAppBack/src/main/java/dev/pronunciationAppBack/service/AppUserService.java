@@ -34,6 +34,7 @@ public class AppUserService {
             updatedUser.setName(appUserDetails.getName());
             updatedUser.setEmail(appUserDetails.getEmail());
             updatedUser.setPassword(appUserDetails.getPassword());
+            updatedUser.setAge(appUserDetails.getAge());
             return Optional.of(appUserRepository.save(updatedUser));
         }
         return Optional.empty();

@@ -29,6 +29,7 @@ public class AppUserServiceUnitTest {
     public static final String UPDATED_NAME = "Updated Name";
     public static final String UPDATED_EMAIL = "updated@example.com";
     public static final String UPDATED_PASSWORD = "newpassword";
+    public static final int UPDATED_AGE = 30;
 
     @Mock
     private AppUserRepository appUserRepositoryMock;
@@ -71,8 +72,7 @@ public class AppUserServiceUnitTest {
 
     @Test
     void shouldUpdateAppUser() {
-        // TODO: Fix this test for updating the age
-        AppUser updatedDetails = new AppUser(ID, UPDATED_NAME, UPDATED_EMAIL, UPDATED_PASSWORD, 30, LocalDate.now());
+        AppUser updatedDetails = new AppUser(ID, UPDATED_NAME, UPDATED_EMAIL, UPDATED_PASSWORD, UPDATED_AGE, LocalDate.now());
 
         when(appUserRepositoryMock.findById(ID)).thenReturn(Optional.of(testAppUser));
         when(appUserRepositoryMock.save(any(AppUser.class))).thenReturn(updatedDetails);
@@ -83,11 +83,12 @@ public class AppUserServiceUnitTest {
         assertThat(updatedUser.get().getName()).isEqualTo(UPDATED_NAME);
         assertThat(updatedUser.get().getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(updatedUser.get().getPassword()).isEqualTo(UPDATED_PASSWORD);
+        assertThat(updatedUser.get().getAge()).isEqualTo(UPDATED_AGE);
     }
 
     @Test
     void shouldReturnEmptyWhenUpdatingNonExistentAppUser() {
-        AppUser updatedDetails = new AppUser(NON_EXISTING_ID, UPDATED_NAME, UPDATED_EMAIL, UPDATED_PASSWORD, 30, LocalDate.now());
+        AppUser updatedDetails = new AppUser(NON_EXISTING_ID, UPDATED_NAME, UPDATED_EMAIL, UPDATED_PASSWORD, UPDATED_AGE, LocalDate.now());
 
         when(appUserRepositoryMock.findById(NON_EXISTING_ID)).thenReturn(Optional.empty());
         Optional<AppUser> updatedAppUser = appUserService.updateAppUser(updatedDetails);
