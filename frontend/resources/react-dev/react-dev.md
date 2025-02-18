@@ -35,7 +35,3 @@
 - [What’s a mutation?](https://react.dev/learn/updating-objects-in-state#whats-a-mutation)
 
 - [Updating arrays without mutation](https://react.dev/learn/updating-arrays-in-state#updating-arrays-without-mutation)
-
-- [Updating arrays without mutation](https://react.dev/learn/updating-arrays-in-state#updating-arrays-without-mutation)
-
-- 
