@@ -4,9 +4,9 @@
 
 Reference linkx
 
-- [pronunciationApp/backend/resources/jpa/model at backend-spring-boot · AlbertProfe/pronunciationApp · GitHub](https://github.com/AlbertProfe/pronunciationApp/tree/backend-spring-boot/backend/resources/jpa/model)
+- [pronunciationApp model· GitHub](https://github.com/AlbertProfe/pronunciationApp/tree/backend-spring-boot/backend/resources/jpa/model)
 
-- [pronunciationApp/backend/resources/pronunciationApp-v0.3.md at backend-spring-boot · AlbertProfe/pronunciationApp · GitHub](https://github.com/AlbertProfe/pronunciationApp/blob/backend-spring-boot/backend/resources/pronunciationApp-v0.3.md)
+- [pronunciationApp-v0.3.md GitHub](https://github.com/AlbertProfe/pronunciationApp/blob/backend-spring-boot/backend/resources/pronunciationApp-v0.3.md)
 
 ```java
 @Entity
@@ -16,7 +16,7 @@ public class AppUser {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    private String userName;
+    private String aapUserName;
     private int age;
     private String email;
     private String password;
@@ -52,7 +52,7 @@ public class GameProgress {
     private int wordsLearned;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "appUser_id")
     private AppUser appUser;
 }
 ```

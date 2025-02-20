@@ -4,7 +4,11 @@
 - [Using the CLI :: Spring Boot](https://docs.spring.io/spring-boot/cli/using-the-cli.html)
 - https://start.spring.io/
 
-Building by CLI  Spring Boot projects is easy but your must be careful with no using a outdated versoin of Spring Boot CLI, To resolve this, you need to update and properly install the Spring Boot CLI if necessary, if not go to step 3. 
+Building by CLI  Spring Boot projects is easy but your must be careful with no using a outdated versoin of Spring Boot CLI.
+
+To resolve this, you need to properly install the Spring Boot CLI, uninstalling the current/previous Spring CLI installation.
+
+If you do not have any previous or current installation go to step 3. 
 
 Here's how to do it:
 
@@ -26,7 +30,7 @@ curl -s "https://get.sdkman.io" | bash source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk install springboot`
 ```
 
-`Verify the installation:
+4. Verify the installation:
 
 ```bash
 spring --version
@@ -34,7 +38,7 @@ spring --version
 
 This should now show the latest version of Spring Boot CLI.
 
-5. Now, try running your original command again:
+5. Now, run `spring init`command:
 
 ```bash
 spring init \
