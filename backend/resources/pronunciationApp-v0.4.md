@@ -7,8 +7,6 @@ Reference linkx
 - [pronunciationApp/backend/resources/jpa/model at backend-spring-boot · AlbertProfe/pronunciationApp · GitHub](https://github.com/AlbertProfe/pronunciationApp/tree/backend-spring-boot/backend/resources/jpa/model)
 
 - [pronunciationApp/backend/resources/pronunciationApp-v0.3.md at backend-spring-boot · AlbertProfe/pronunciationApp · GitHub](https://github.com/AlbertProfe/pronunciationApp/blob/backend-spring-boot/backend/resources/pronunciationApp-v0.3.md)
-  
-  
 
 ```java
 @Entity
